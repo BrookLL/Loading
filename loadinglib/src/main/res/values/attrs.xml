@@ -3,5 +3,6 @@
     <declare-styleable name="CircleLoadingView">
         <attr name="startColor" format="color" />
         <attr name="endColor" format="color" />
+        <attr name="circleThickness" format="dimension" />
     </declare-styleable>
 </resources>

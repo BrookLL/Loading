@@ -82,7 +82,7 @@ public class CircleLoadingView extends View {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleLoadingView);
         startColor = typedArray.getColor(R.styleable.CircleLoadingView_startColor, 0xFFFFFFFF);
         endColor = typedArray.getColor(R.styleable.CircleLoadingView_endColor, 0x00000000);
-        circleThickness = dip2px(10);
+        circleThickness = (int) typedArray.getDimension(R.styleable.CircleLoadingView_circleThickness, dip2px(10));
         paint = new Paint();
         paint.setAntiAlias(true);
         paint.setStrokeWidth(circleThickness);
@@ -104,6 +104,12 @@ public class CircleLoadingView extends View {
         initRect(getMeasuredWidth(), getMeasuredHeight());
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        initRect(w, h);
+    }
+
     private void initRect(float width, float height) {
         if (width > height) {
             rect.left = (width - height) / 2;
@@ -121,7 +127,8 @@ public class CircleLoadingView extends View {
         rect.top = rect.top + circleThickness / 2;
         rect.bottom = rect.bottom - circleThickness / 2;
 
-        shader = new SweepGradient(width / 2, height / 2, startColor, endColor);
+        //因为这个圆环是顺时针旋转的，所有endColor, startColor在shader上反过来写了
+        shader = new SweepGradient(width / 2, height / 2, endColor, startColor);
         matrix = new Matrix();
         matrix.setRotate(-90 + 20);//着色器初始位置，12点钟方法加20度，收尾留一点空隙
         shader.setLocalMatrix(matrix);
@@ -143,7 +150,7 @@ public class CircleLoadingView extends View {
             shader.setLocalMatrix(matrix);
             paint.setShader(shader);
             invalidate();
-            Log.d(TAG,"rate:"+rate);
+            Log.d(TAG, "rate:" + rate);
         }
     }
 
@@ -156,13 +163,22 @@ public class CircleLoadingView extends View {
         refresh();
     }
 
+    public int getCircleThickness() {
+        return circleThickness;
+    }
+
+    public void setCircleThickness(int circleThickness) {
+        this.circleThickness = circleThickness;
+    }
+
     private void animStart() {
-        if (animator!=null&&!animator.isStarted()) {
+        if (animator != null && !animator.isStarted()) {
             animator.start();
         }
     }
+
     private void animStop() {
-        if (animator!=null&&animator.isStarted()) {
+        if (animator != null && animator.isStarted()) {
             animator.cancel();
         }
     }
