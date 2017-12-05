@@ -80,6 +80,7 @@ public class CircleLoadingView extends View {
         startColor = typedArray.getColor(R.styleable.CircleLoadingView_startColor, 0xFFFFFFFF);
         endColor = typedArray.getColor(R.styleable.CircleLoadingView_endColor, 0x00000000);
         circleThickness = (int) typedArray.getDimension(R.styleable.CircleLoadingView_circleThickness, dip2px(10));
+        typedArray.recycle();
         paint = new Paint();
         paint.setAntiAlias(true);
         paint.setStrokeWidth(circleThickness);
