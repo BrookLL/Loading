@@ -11,11 +11,8 @@ import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Author riverlet.liu
@@ -50,13 +47,13 @@ public class CircleLoadingView extends View {
      */
     private Matrix matrix;
     /**
-     * 圆环厚度
+     * 圆环厚度f
      */
     private int circleThickness;
     /**
      * 属性东环改变的属性，0.0~1.0
      */
-    private float rate;
+    private float rate = 0.0f;
     /**
      * 属性动画对象
      */
@@ -130,7 +127,7 @@ public class CircleLoadingView extends View {
         //因为这个圆环是顺时针旋转的，所有endColor, startColor在shader上反过来写了
         shader = new SweepGradient(width / 2, height / 2, endColor, startColor);
         matrix = new Matrix();
-        matrix.setRotate(-90 + 20);//着色器初始位置，12点钟方法加20度，收尾留一点空隙
+        matrix.setRotate(-90 + 20,width/2,height/2);//着色器初始位置，12点钟方法加20度，收尾留一点空隙
         shader.setLocalMatrix(matrix);
         paint.setShader(shader);
     }
@@ -141,16 +138,13 @@ public class CircleLoadingView extends View {
         canvas.drawArc(rect, -90f + 30 + 360 * rate, 330f, false, paint);
     }
 
-    /**
-     * 记录上次刷新时间
-     */
+
     private void refresh() {
         if (paint != null && matrix != null && shader != null) {
             matrix.setRotate(-90 + 20 + 360 * rate, getWidth() / 2, getHeight() / 2);
             shader.setLocalMatrix(matrix);
             paint.setShader(shader);
             invalidate();
-            Log.d(TAG, "rate:" + rate);
         }
     }
 

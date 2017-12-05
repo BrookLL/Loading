@@ -18,7 +18,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initView();
+    }
 
+
+    private void initView() {
         for (int i = 0; i < fragments.length; i++) {
             fragments[i] = LoadingFragment.newInstance(layoutIds[i]);
         }
