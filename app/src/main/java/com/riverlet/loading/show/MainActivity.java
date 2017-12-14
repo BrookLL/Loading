@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
 
     private int[] layoutIds = new int[]{
+            R.layout.loading_2_threebodyloadingview,
             R.layout.loading_1_circelloadingview
     };
     private Fragment[] fragments = new Fragment[layoutIds.length];

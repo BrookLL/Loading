@@ -5,4 +5,9 @@
         <attr name="endColor" format="color" />
         <attr name="circleThickness" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="ThreeBodyLoadingView">
+        <attr name="firstColor" format="color" />
+        <attr name="secondColor" format="color" />
+        <attr name="thirdColor" format="color" />
+    </declare-styleable>
 </resources>
