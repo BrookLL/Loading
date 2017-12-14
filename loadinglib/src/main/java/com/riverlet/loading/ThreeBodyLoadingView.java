@@ -19,12 +19,27 @@ import android.view.animation.LinearInterpolator;
 
 public class ThreeBodyLoadingView extends View {
     private static final String TAG = "ThreeBodyLoadingView";
+    /**
+     * 记录三个小球的初始位置
+     */
     private Body[] originalBodys = new Body[3];
+    /**
+     * 记录三个小球的最新位置
+     */
     private Body[] bodys = new Body[3];
     private ObjectAnimator animator;
     private float rate;
+    /**
+     * 圆心移动的最大距离
+     */
     private int movingDistance;
+    /**
+     * 半径变化幅度
+     */
     private int radiusRange;
+    /**
+     * 绘制顺序
+     */
     private int[] drawOrders = new int[3];
 
     public ThreeBodyLoadingView(Context context) {
