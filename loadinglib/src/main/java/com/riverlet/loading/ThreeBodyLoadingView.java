@@ -7,7 +7,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
@@ -63,7 +62,6 @@ public class ThreeBodyLoadingView extends View {
         animator.setDuration(1500);
         animator.setInterpolator(new LinearInterpolator());
         animator.setRepeatCount(-1);
-        animator.start();
     }
 
     @Override
@@ -72,6 +70,13 @@ public class ThreeBodyLoadingView extends View {
         computeOriginalPosition(getMeasuredWidth(), getMeasuredHeight());
     }
 
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        computeOriginalPosition(w, h);
+    }
+
+    //计算初始位置
     private void computeOriginalPosition(int width, int height) {
         int cellWith = width / 6;
         if (cellWith > height * 1.25f) {
@@ -99,6 +104,7 @@ public class ThreeBodyLoadingView extends View {
         computePosition();
     }
 
+    //计算新位置
     private void computePosition() {
         if (rate <= 1.0f) {
             bodys[0].centerX = (int) (originalBodys[0].centerX + movingDistance * 0.5f * rate);
@@ -160,7 +166,6 @@ public class ThreeBodyLoadingView extends View {
         for (int i = 0; i < drawOrders.length; i++) {
             canvas.drawCircle(bodys[drawOrders[i]].centerX, bodys[drawOrders[i]].centerY, bodys[drawOrders[i]].radius, bodys[drawOrders[i]].paint);
         }
-        Log.d(TAG, originalBodys[2].centerX + "..............." + bodys[2].centerX);
     }
 
     public float getRate() {
