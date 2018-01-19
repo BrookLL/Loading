@@ -145,9 +145,7 @@ public class ThreeBodyLoadingView extends View {
             bodys[1].centerX = (int) (originalBodys[1].centerX + movingDistance * (1.5f - rate));
             bodys[1].radius = originalBodys[1].radius;
 
-//            bodys[2].centerX = (int) (originalBodys[2].centerX - movingDistance + movingDistance * 0.5f * (rate - 1));
-//            合并运算，减少计算量
-            bodys[2].centerX = (int) (originalBodys[2].centerX - movingDistance * (1.5f - 0.5f * rate));
+            bodys[2].centerX = (int) (originalBodys[2].centerX - movingDistance + movingDistance * 0.5f * (rate - 1));
             bodys[2].radius = (int) (originalBodys[2].radius + radiusRange * (rate - 1));
 
             drawOrders[0] = 1;
